@@ -23,8 +23,8 @@ def index():
         lexical_category = response['results'][0]['lexicalEntries'][0]['lexicalCategory']['text'].lower()
         definition = response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['definitions'][0]
         definition = definition[0].upper() + definition[1:]
-        examples = response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['examples']
-        synonyms = response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['synonyms']
+        examples = response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0].get('examples', [])
+        synonyms = response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0].get('synonyms', [])
 
         return render_template('index.html', word=word,
                                lexical_category=lexical_category,
