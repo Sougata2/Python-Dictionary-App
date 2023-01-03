@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../static/style.css">
+
+    <title>Dictionary App</title>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand title">
+            <img src="../static/book.png" alt="" width="50" height="50" class="d-inline-block align-text-top">
+            Dictionary App
+        </a>
+    </div>
+</nav>
+<!-- Search Bar -->
+<form action="{{ url_for('index') }}" method="POST">
+    <div class="form-floating mb-3 container my-5">
+        <input
+                type="text"
+                class="form-control word-input"
+                id="floatingInput"
+                placeholder="Search Word"
+                name="search_word"
+                autocomplete="off"
+        />
+        <label for="floatingInput">Search Word</label>
+        <div class="col-12 my-4">
+            <button class="btn btn-primary search-btn" type="submit">Search</button>
+            <button class="btn btn-primary loader-btn hidden" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Searching...
+            </button>
+        </div>
+    </div>
+</form>
+
+
+<!-- show result validation -->
+{% if show_result %}
+
+    <!-- meaning -->
+    <div class="container">
+        <div class="word" style="text-align: center;">{{ word }}</div>
+        <ul class="meanings list-group list-overflow">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <p style="color: grey"><i>{{ lexical_category }}</i></p>
+                    <p style="margin: 0 2rem;">{{ definition }}</p>
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <p>Examples</p>
+                    {% for example in examples %}
+                        <p style="margin: 0.5rem 2rem;"><span
+                                style="font-size: 0.7rem; margin: 0 0.5rem 0 0;">&#11044;</span> {{ example['text'] }}
+                        </p>
+                    {% endfor %}
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <p>synonyms</p>
+                    {% for synonym in synonyms %}
+                        <p style="margin: 0.5rem 2rem;"><span
+                                style="font-size: 0.7rem; margin: 0 0.5rem 0 0;">&#11044;</span> {{ synonym['text'] }}
+                        </p>
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+    </div>
+{% endif %}
+
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
+</body>
+<script src="../static/app.js"></script>
+</html>
