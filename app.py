@@ -16,6 +16,9 @@ def index():
         response = r.json()
 
         print(response)
+        if 'error' in response.keys():
+            return render_template('index.html', error=True, error_msg=response['error'], show_result=False)
+
         word = response['word'].title()
         lexical_category = response['results'][0]['lexicalEntries'][0]['lexicalCategory']['text'].lower()
         definition = response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['definitions'][0]
